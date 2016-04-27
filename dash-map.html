@@ -1,0 +1,153 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="jquery-general.html">
+<link rel="import" href="jvectormap.html">
+
+<dom-module id="dash-map">
+    <template>
+        <style>
+            #usamap {
+                height: 600px;
+            }
+        </style>
+
+        <div id="usamap"></div>
+
+    </template>
+    <script>
+        Polymer({
+            is: 'dash-map',
+
+            attached: function () {
+                this.async(function () {
+                    $(document).ready(function () {
+                        var dataSale = {
+                            "US-VA": '12190',
+                            "US-PA": '12190',
+                            "US-TN": '12190',
+                            "US-WV": '12190',
+                            "US-NV": '12190',
+                            "US-TX": '12190',
+                            "US-NH": '12190',
+                            "US-NY": '12190',
+                            "US-HI": '12190',
+                            "US-VT": '12190',
+                            "US-NM": '12190',
+                            "US-NC": '12190',
+                            "US-ND": '12190',
+                            "US-NE": '12190',
+                            "US-LA": '12190',
+                            "US-SD": '12190',
+                            "US-DC": '12190',
+                            "US-DE": '12190',
+                            "US-FL": '12190',
+                            "US-CT": '12190',
+                            "US-WA": '12190',
+                            "US-KS": '12190',
+                            "US-WI": '12190',
+                            "US-OR": '12190',
+                            "US-KY": '12190',
+                            "US-ME": '12190',
+                            "US-OH": '12190',
+                            "US-OK": '12190',
+                            "US-ID": '12190',
+                            "US-WY": '12190',
+                            "US-UT": '12190',
+                            "US-IN": '12190',
+                            "US-IL": '12190',
+                            "US-AK": '12190',
+                            "US-NJ": '12190',
+                            "US-CO": '12190',
+                            "US-MD": '12190',
+                            "US-AL": '12190',
+                            "US-MO": '12190',
+                            "US-MN": '12190',
+                            "US-CA": '12190',
+                            "US-IA": '12190',
+                            "US-MI": '12190',
+                            "US-GA": '12190',
+                            "US-AZ": '12190',
+                            "US-MT": '12190',
+                            "US-MS": '12190',
+                            "US-SC": '12190',
+                            "US-RI": '12190',
+                            "US-AR": '12190'
+                        };
+
+                        var usDataMapMarkers = [{
+                                latLng: [37.733654, -94.983505],
+                                name: "Firstname LastName",
+                                earnings: '150'
+                },
+                            {
+                                latLng: [27.037398, -80.446062],
+                                name: "FirstName LastName",
+                                earnings: '1700'
+                    },
+                            {
+                                latLng: [39.393718, -76.961260],
+                                name: "FirstName LastName",
+                                earnings: '1200'
+                    },
+                            {
+                                latLng: [38.987131, -77.796220],
+                                name: "FirstName LastName",
+                                earnings: '2000'
+                    },
+                            {
+                                latLng: [47.473720, -121.359552],
+                                name: "FirstName LastName",
+                                earnings: '700'
+                    },
+                            {
+                                latLng: [36.305413, -114.352629],
+                                name: "FirstName LastName",
+                                earnings: '500'
+                    },
+                            {
+                                latLng: [47.813030, -104.958972],
+                                name: "FirstName LastName",
+                                earnings: '400'
+                    }];
+
+                        $('#usamap').vectorMap({
+                            map: 'us_mill',
+                            backgroundColor: 'rgba(0,0,0,0)',
+                            regionsSelectable: false,
+                            zoomOnScroll: false,
+                            regionStyle: {
+                                initial: {
+                                    fill: '#34495e'
+                                }
+                            },
+                            markers: usDataMapMarkers,
+                            markerStyle: {
+                                initial: {
+                                    fill: '#e74c3c',
+                                    stroke: '#e74c3c',
+                                    'fill-opacity': 1,
+                                    'stroke-width': 10,
+                                    'stroke-opacity': 0.2,
+                                    r: 5
+                                },
+                                hover: {
+                                    stroke: '#34495e',
+                                    'stroke-width': 2,
+                                    cursor: 'pointer'
+                                }
+                            },
+                            onRegionTipShow: function (e, el, code) {
+                                if (dataSale.hasOwnProperty(code)) {
+                                    el.html(el.html() + ' ($' + dataSale[code] + ')');
+                                }
+                            },
+                            onMarkerTipShow: function (e, el, code) {
+                                el.html(el.html() + ' ($' + usDataMapMarkers[code].earnings + ')');
+                            }
+                        });
+                    });
+                });
+            }
+        });
+    </script>
+</dom-module>
