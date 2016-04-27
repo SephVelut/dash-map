@@ -15,8 +15,8 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "^3.3.6",
-    "jquery": "^2.2.3",
+    "bootstrap-import": "*",
+    "jquery-import-seph": "*",
     "polymer": "^1.4.0"
   }
 }
