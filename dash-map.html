@@ -22,10 +22,15 @@
         Polymer({
             is: 'dash-map',
 
+            properties: {
+                dots: Array
+            },
+
             attached: function () {
                 this.async(function () {
-                    $(document).ready(function () {
-                        var dataSale = {
+                    var dots = this.dots;
+
+                        var stateValues = {
                             "US-VA": '12190',
                             "US-PA": '12190',
                             "US-TN": '12190',
@@ -78,42 +83,6 @@
                             "US-AR": '12190'
                         };
 
-                        var usDataMapMarkers = [{
-                                latLng: [37.733654, -94.983505],
-                                name: "Firstname LastName",
-                                earnings: '150'
-                },
-                            {
-                                latLng: [27.037398, -80.446062],
-                                name: "FirstName LastName",
-                                earnings: '1700'
-                    },
-                            {
-                                latLng: [39.393718, -76.961260],
-                                name: "FirstName LastName",
-                                earnings: '1200'
-                    },
-                            {
-                                latLng: [38.987131, -77.796220],
-                                name: "FirstName LastName",
-                                earnings: '2000'
-                    },
-                            {
-                                latLng: [47.473720, -121.359552],
-                                name: "FirstName LastName",
-                                earnings: '700'
-                    },
-                            {
-                                latLng: [36.305413, -114.352629],
-                                name: "FirstName LastName",
-                                earnings: '500'
-                    },
-                            {
-                                latLng: [47.813030, -104.958972],
-                                name: "FirstName LastName",
-                                earnings: '400'
-                    }];
-
                         $('#usamap').vectorMap({
                             map: 'us_mill',
                             backgroundColor: 'rgba(0,0,0,0)',
@@ -124,7 +93,7 @@
                                     fill: '#34495e'
                                 }
                             },
-                            markers: usDataMapMarkers,
+                            markers: dots,
                             markerStyle: {
                                 initial: {
                                     fill: '#e74c3c',
@@ -141,16 +110,15 @@
                                 }
                             },
                             onRegionTipShow: function (e, el, code) {
-                                if (dataSale.hasOwnProperty(code)) {
-                                    el.html(el.html() + ' ($' + dataSale[code] + ')');
+                                if (stateValues.hasOwnProperty(code)) {
+                                    el.html(el.html() + ' ($' + stateValues[code] + ')');
                                 }
                             },
                             onMarkerTipShow: function (e, el, code) {
-                                el.html(el.html() + ' ($' + usDataMapMarkers[code].earnings + ')');
+                                el.html(el.html() + ' ($' + dots[code].earnings + ')');
                             }
                         });
                     });
-                });
             }
         });
     </script>
