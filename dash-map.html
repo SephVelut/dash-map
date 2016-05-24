@@ -23,67 +23,77 @@
             is: 'dash-map',
 
             properties: {
-                dots: Array
+                dots: {
+                    type: Array,
+                    observer: '_showDots'
+                },
+
+                stateInfo: {
+                    type: Object,
+                    value: {
+                            "US-VA": '0',
+                            "US-PA": '0',
+                            "US-TN": '0',
+                            "US-WV": '0',
+                            "US-NV": '0',
+                            "US-TX": '0',
+                            "US-NH": '0',
+                            "US-NY": '0',
+                            "US-HI": '0',
+                            "US-VT": '0',
+                            "US-NM": '0',
+                            "US-NC": '0',
+                            "US-ND": '0',
+                            "US-NE": '0',
+                            "US-LA": '0',
+                            "US-SD": '0',
+                            "US-DC": '0',
+                            "US-DE": '0',
+                            "US-FL": '0',
+                            "US-CT": '0',
+                            "US-WA": '0',
+                            "US-KS": '0',
+                            "US-WI": '0',
+                            "US-OR": '0',
+                            "US-KY": '0',
+                            "US-ME": '0',
+                            "US-OH": '0',
+                            "US-OK": '0',
+                            "US-ID": '0',
+                            "US-WY": '0',
+                            "US-UT": '0',
+                            "US-IN": '0',
+                            "US-IL": '0',
+                            "US-AK": '0',
+                            "US-NJ": '0',
+                            "US-CO": '0',
+                            "US-MD": '0',
+                            "US-AL": '0',
+                            "US-MO": '0',
+                            "US-MN": '0',
+                            "US-CA": '0',
+                            "US-IA": '0',
+                            "US-MI": '0',
+                            "US-GA": '0',
+                            "US-AZ": '0',
+                            "US-MT": '0',
+                            "US-MS": '0',
+                            "US-SC": '0',
+                            "US-RI": '0',
+                            "US-AR": '0'
+                        }
+                }
             },
 
-            attached: function () {
-                this.async(function () {
-                    var dots = this.dots;
+            _showDots: function(newValue, oldValue) {
+                this._showMap();
+            },
 
-                        var stateValues = {
-                            "US-VA": '12190',
-                            "US-PA": '12190',
-                            "US-TN": '12190',
-                            "US-WV": '12190',
-                            "US-NV": '12190',
-                            "US-TX": '12190',
-                            "US-NH": '12190',
-                            "US-NY": '12190',
-                            "US-HI": '12190',
-                            "US-VT": '12190',
-                            "US-NM": '12190',
-                            "US-NC": '12190',
-                            "US-ND": '12190',
-                            "US-NE": '12190',
-                            "US-LA": '12190',
-                            "US-SD": '12190',
-                            "US-DC": '12190',
-                            "US-DE": '12190',
-                            "US-FL": '12190',
-                            "US-CT": '12190',
-                            "US-WA": '12190',
-                            "US-KS": '12190',
-                            "US-WI": '12190',
-                            "US-OR": '12190',
-                            "US-KY": '12190',
-                            "US-ME": '12190',
-                            "US-OH": '12190',
-                            "US-OK": '12190',
-                            "US-ID": '12190',
-                            "US-WY": '12190',
-                            "US-UT": '12190',
-                            "US-IN": '12190',
-                            "US-IL": '12190',
-                            "US-AK": '12190',
-                            "US-NJ": '12190',
-                            "US-CO": '12190',
-                            "US-MD": '12190',
-                            "US-AL": '12190',
-                            "US-MO": '12190',
-                            "US-MN": '12190',
-                            "US-CA": '12190',
-                            "US-IA": '12190',
-                            "US-MI": '12190',
-                            "US-GA": '12190',
-                            "US-AZ": '12190',
-                            "US-MT": '12190',
-                            "US-MS": '12190',
-                            "US-SC": '12190',
-                            "US-RI": '12190',
-                            "US-AR": '12190'
-                        };
+            _showMap: function() {
+                var dots = this.dots;
+                var stateInfo = this.stateInfo;
 
-                        $('#usamap').vectorMap({
+                $(this.$['usamap']).vectorMap({
                             map: 'us_mill',
                             backgroundColor: 'rgba(0,0,0,0)',
                             regionsSelectable: false,
@@ -110,15 +120,22 @@
                                 }
                             },
                             onRegionTipShow: function (e, el, code) {
-                                if (stateValues.hasOwnProperty(code)) {
-                                    el.html(el.html() + ' ($' + stateValues[code] + ')');
+                                if (stateInfo.hasOwnProperty(code)) {
+                                    el.html(el.html() + ' ($' + stateInfo[code] + ')');
                                 }
                             },
                             onMarkerTipShow: function (e, el, code) {
                                 el.html(el.html() + ' ($' + dots[code].earnings + ')');
                             }
                         });
-                    });
+            },
+
+            attached: function () {
+                this.async(function () {
+                    if (this.dots !== undefined) {
+                        this._showMap();
+                    }
+                });
             }
         });
     </script>
